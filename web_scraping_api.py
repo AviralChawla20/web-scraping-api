@@ -19,7 +19,7 @@ def get_top_hackathon_name_and_logo(url, link):
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.binary_location = chrome_binary_path  # Set the path to the Chrome binary
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver', options=options)  # Use Chrome driver here
+    driver = webdriver.Chrome(options=options)  # Use Chrome driver here
 
     try:
         driver.get(url)
@@ -56,7 +56,7 @@ def scrape_competitions_list(url, num_competitions):
     options.add_argument('--no-sandbox')
     options.add_argument('--headless')
     options.binary_location = chrome_binary_path  # Set the path to the Chrome binary
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver', options=options)  # Use Chrome driver here
+    driver = webdriver.Chrome(options=options)  # Use Chrome driver here
 
     try:
         driver.get(url)
@@ -111,7 +111,7 @@ def get_competition_logo(competition_link):
     options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.binary_location = chrome_binary_path  # Set the path to the Chrome binary
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver', options=options)  # Use Chrome driver here
+    driver = webdriver.Chrome(options=options)  # Use Chrome driver here
 
     try:
         driver.get(competition_link)
