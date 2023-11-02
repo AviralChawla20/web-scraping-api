@@ -135,16 +135,16 @@ def get_competition_logo(competition_link):
 def get_combined_data():
     current_link = 'https://unstop.com/hackathons?oppstatus=recent'
     devfolio_link = 'https://devfolio.co/hackathons'
-    num_competitions = 4
+    num_competitions = 6
 
     # Get the top-most hackathon data
-    top_hackathon_info = get_top_hackathon_name_and_logo(current_link, link=current_link)
+    # top_hackathon_info = get_top_hackathon_name_and_logo(current_link, link=current_link)
 
     # Scrape competition data
     competition_data = scrape_competitions_list(devfolio_link, num_competitions)
 
     # Add the top hackathon info to competition data
-    competition_data.insert(0, top_hackathon_info)
+    # competition_data.insert(0, top_hackathon_info)
 
     # Create a list of dictionaries in the desired format
     result = [
