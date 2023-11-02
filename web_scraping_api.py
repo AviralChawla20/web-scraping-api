@@ -9,8 +9,6 @@ from urllib.parse import urljoin
 app = Flask(__name__)
 CORS(app)
 
-
-
 # Function to get the top-most hackathon name and logo
 def get_top_hackathon_name_and_logo(url, link):
     options = Options()
