@@ -101,6 +101,7 @@ def get_competition_logo(competition_link):
     options = Options()
     options.headless = True
     options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(options=options)  # Use Chrome driver here
 
     try:
