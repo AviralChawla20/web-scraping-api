@@ -15,6 +15,7 @@ chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/chrom
 def setup_driver():
     options = Options()
     options.headless = True
+    options.add_argument('--headless')
     options.add_argument('--no-sandbox')
     options.binary_location = chrome_binary_path
     driver = webdriver.Chrome(options=options)
