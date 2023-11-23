@@ -1,22 +1,15 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
 import time
 
-app = FastAPI()
-origins = ["*"]  # Allow all origins for CORS (replace with specific origins if needed)
+app = Flask(__name__)
+CORS(app)
 
-# Set up CORS middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+# chrome_binary_path = "/opt/render/project/.render/chrome/opt/google/chrome/chrome"
 
 
 # Function to set up a Chrome driver
@@ -25,6 +18,7 @@ def setup_driver():
     options.headless = True
     options.add_argument("--headless")
     options.add_argument("--no-sandbox")
+    # options.binary_location = chrome_binary_path
     driver = webdriver.Chrome(options=options)
     return driver
 
@@ -44,7 +38,7 @@ def get_top_hackathon_name_and_logo(url, link):
     driver = setup_driver()
     try:
         driver.get(url)
-        # time.sleep(5)  # Add a delay to ensure page loads properly
+        time.sleep(5)  # Add a delay to ensure page loads properly
 
         page_html = driver.page_source
         soup = BeautifulSoup(page_html, "html.parser")
@@ -70,7 +64,7 @@ def scrape_competitions_list(url, num_competitions):
     driver = setup_driver()
     try:
         driver.get(url)
-        # time.sleep(5)  # Add a delay to ensure page loads properly
+        time.sleep(5)  # Add a delay to ensure page loads properly
 
         page_html = driver.page_source
         soup = BeautifulSoup(page_html, "html.parser")
@@ -117,7 +111,7 @@ def get_competition_logo(competition_link):
     driver = setup_driver()
     try:
         driver.get(competition_link)
-        # time.sleep(5)  # Add a delay to ensure page loads properly
+        time.sleep(5)  # Add a delay to ensure page loads properly
 
         page_html = driver.page_source
         soup = BeautifulSoup(page_html, "html.parser")
@@ -136,7 +130,7 @@ def get_competition_logo(competition_link):
 
 
 # Define a single API endpoint for combined data
-@app.get("/api/data")
+@app.route("/api/data", methods=["GET"])
 def get_data():
     current_link = "https://unstop.com/hackathons?oppstatus=recent"
     devfolio_link = "https://devfolio.co/hackathons"
@@ -161,10 +155,8 @@ def get_data():
         for item in competition_data
     ]
 
-    return result
+    return jsonify(result)
 
 
 if __name__ == "__main__":
-    import uvicorn
-
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    app.run(debug=True, host="0.0.0.0", port=5000)
