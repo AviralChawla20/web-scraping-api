@@ -140,7 +140,7 @@ def get_competition_logo(competition_link):
 def get_data():
     current_link = "https://unstop.com/hackathons?oppstatus=recent"
     devfolio_link = "https://devfolio.co/hackathons"
-    num_competitions = 8
+    num_competitions = 6
 
     # Get the top-most hackathon data
     # top_hackathon_info = get_top_hackathon_name_and_logo(current_link, link=current_link)
@@ -167,4 +167,4 @@ def get_data():
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=5000)
+    uvicorn.run(app, host="0.0.0.0", port=5000, threaded=True)
